@@ -1,0 +1,63 @@
+ 
+<app-base>
+    <div class="grid grid-rows-3 place-content-center p-10">
+        <div class="row-span-3 flex flex-row justify-between pb-12">
+            <div>
+                <app-input-field 
+                    [label]="inputLabel"
+                    [placeholder]="inputLabel"
+                    [inputLength]="1"
+                    [(bindedInputVariable)]="biasChar" 
+                    (bindedInputVariableChange)="updateBiasChar($event)"
+                    [type]="inputType">
+                </app-input-field>
+            </div>
+
+            <div class="relative flex items-center justify-end scale-50 w-20 h-20 overflow-hidden rounded-full ring-gray-400 ring-2">
+            
+            <div *ngFor="let i of [0, 1, 2, 3, 4, 5, 6, 7]">
+                <div
+                [ngStyle]="{ height: 1 }"
+                [ngClass]="{
+                    'absolute w-1/2 left-10 top-7 origin-left flex justify-end': true,
+                    'rotate-0': i === 0,
+                    'rotate-45': i === 1,
+                    'rotate-90': i === 2,
+                    'rotate-[135deg]': i === 3,
+                    'rotate-180': i === 4,
+                    'rotate-[225deg]': i === 5,
+                    'rotate-[270deg]': i === 6,
+                    'rotate-[315deg]': i === 7
+                }">
+                <div class="w-1/4 h-full text-gray-400 rounded-full">-</div>
+                </div>
+            </div>
+            
+            <div class="absolute left-10 w-6 h-1 bg-gray-400 rounded-full origin-left -rotate-90 group-hover:rotate-[215deg] duration-1000 ease-in-out" ></div>
+            
+            <div class="absolute w-9 h-1 origin-left rotate-[180deg] group-hover:rotate-[340deg] duration-1000 ease-in-out">
+                <div class="w-2/3 h-full bg-gray-400 rounded-full" ></div>
+            </div>
+            
+            <div class="absolute flex justify-center flex-1 w-full">
+                <div class="w-2 h-2 bg-gray-400 rounded-md"></div>
+            </div>
+        </div>
+
+            <div class="grid place-content-center">
+            <app-button [label]="buttonLabel" (buttonClick)="startGenerator()"></app-button>
+            </div>
+        </div>
+        <table class="border border-gray-500 text-center altar-grid border-spacing-0 border-separate rounded-sm">
+        <tbody>
+            <tr *ngFor="let row of grid" class=" border-gray-500">
+            <td *ngFor="let cell of row" class="border-gray-500 text-sm text-gray-900 font-light">{{ cell }}</td>
+            </tr>
+        </tbody>
+        </table>
+        <app-live-code></app-live-code>
+    </div>
+</app-base>
+  
+<router-outlet></router-outlet>
+  

@@ -1,0 +1,44 @@
+.altar-grid 
+    table-layout: fixed
+    width: 800px
+    height: 512px
+
+
+td 
+    height: 51.2px
+
+
+table 
+    border-spacing: 0
+
+table td:first-child, table td:not(:first-child):not(:last-child)
+    border-right:1px solid black
+    --tw-border-opacity: 1
+    border-color: rgb(107 114 128 / var(--tw-border-opacity))
+
+table tr:first-child td, table tr:not(:last-child) td 
+    border-bottom:1px solid black
+    border-color: rgb(107 114 128 / var(--tw-border-opacity))
+
+
+table thead tr:first-child  td:first-child 
+    -webkit-border-top-left-radius: 2px
+    -moz-border-radius-topleft: 2px
+    border-top-left-radius: 2px
+
+
+table thead tr:first-child  td:last-child 
+    -webkit-border-top-right-radius:2px
+    -moz-border-radius-topright: 2px
+    border-top-right-radius: 2px
+
+table tbody tr:last-child  td:first-child 
+    -webkit-border-bottom-left-radius: 2px
+    -moz-border-radius-bottomleft: 2px
+    border-bottom-left-radius: 2px
+
+
+table tbody tr:last-child  td:last-child 
+    -webkit-border-bottom-right-radius: 2px
+    -moz-border-radius-bottomright: 2px
+    border-bottom-right-radius: 2px

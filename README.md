@@ -4,7 +4,10 @@
 docker-compose build
 docker-compose up
 
-
-install npx, tsc
+## Install node locally (optional)
 nvm install 16
-https://stackoverflow.com/questions/72921215/getting-glibc-2-28-not-found
+
+## Compile node typescript in backend/src
+npx tsc
+
+## Navigate to localhost:4200

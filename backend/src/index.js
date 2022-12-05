@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-// Set up an Express server to handle HTTP requests
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded());
@@ -46,7 +45,6 @@ function updateCode() {
     const firstDigit = parseInt(seconds[0]);
     const secondDigit = parseInt(seconds[1]);
     console.log(firstDigit, secondDigit);
-    // Get the characters at positions [3,6] and [6,3]
     const char1 = grid[firstDigit][secondDigit];
     const char2 = grid[secondDigit][firstDigit];
     // Count the occurrences of the characters in the grid
@@ -67,7 +65,6 @@ function updateCode() {
     count1 = getLowestInteger(count1);
     count2 = getLowestInteger(count2);
     console.log('count1, count2', count1, count2);
-    // Done! That is your code: 79
     code = `${count1}${count2}`;
 }
 function getLowestInteger(num) {
@@ -95,28 +92,21 @@ function isPrime(num) {
 }
 function getRandomCharExcludingBias() {
     let charCode = 65 + Math.floor(Math.random() * 26);
-    //todo:make sure is always uppercase.
     if (bias !== null && charCode == bias.charCodeAt(0)) {
         charCode = 65;
     }
     return String.fromCharCode(charCode);
 }
-// Generate a new grid and code every 2 seconds
 setInterval(() => {
     updateGrid();
     updateCode();
 }, 2000);
-// Handle HTTP GET requests for the grid
 app.get('/grid', (0, cors_1.default)(), (req, res) => {
-    //updateGrid();
     res.json({ 'message': 'Success', 'grid': grid });
 });
-// Handle HTTP GET requests for the code
 app.get('/code', (0, cors_1.default)(), (req, res) => {
-    //updateCode()
     res.send(code);
 });
-// Handle HTTP POST requests to update the bias values
 app.post('/bias', (req, res) => {
     if (req.body.biasChar !== undefined) {
         const char = req.body.biasChar;
