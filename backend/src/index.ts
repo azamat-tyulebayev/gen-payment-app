@@ -10,14 +10,14 @@ app.use(cors({ origin: ['http://localhost:4200'], credentials: true }))
 
 // Store the grid and the bias values in memory
 let grid: string[][] = [];
-let bias: string = 'Z';
+let bias: string|null = null;
 let code: string = '';
 
 // Generate a new grid
 function updateGrid(): void {
   let orderedArray: string[] = Array(100);
 
-  if (bias !== '') {
+  if (bias !== null) {
     orderedArray.fill(bias, 0, 20);
     orderedArray.fill('-', 20, 100);
   }
@@ -106,7 +106,7 @@ function isPrime(num: number) {
 function getRandomCharExcludingBias() {
   let charCode = 65 + Math.floor(Math.random() * 26);
   //todo:make sure is always uppercase.
-  if (bias != '' && charCode == bias.charCodeAt(0)) {
+  if (bias !== null && charCode == bias.charCodeAt(0)) {
     charCode = 65;
   }
 
@@ -133,13 +133,25 @@ app.get('/code',cors(), (req, res) => {
 
 // Handle HTTP POST requests to update the bias values
 app.post('/bias', (req, res) => {
-  console.log(req.body.biasChar)
-  console.log(req.body)
+  if (req.body.biasChar !== undefined) {
+    const char = req.body.biasChar;
 
-  const char = req.body.biasChar;
-  console.log('CHAR!!!', char);
-  bias = char;
-  res.sendStatus(204);
+    if (char.length !== 1) {
+      return res.sendStatus(400);
+    }
+  
+    // Check if the request is within the alphabet
+    if (false === char.match(/^[A-Za-z]$/)) {
+      return res.sendStatus(400);
+    }
+
+    console.log('CHAR!!!', char);
+  
+    bias = char.toUpperCase();
+    return res.sendStatus(204);
+  }
+
+  return res.sendStatus(400);
 });
 
 // Start the server on port 3000

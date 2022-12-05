@@ -13,6 +13,10 @@
     display: inline-block;
   }
 
+  td {
+    height: 51.2px;
+  }
+
   table {
     border-spacing: 0;
 }
@@ -53,12 +57,14 @@ table tbody tr:last-child  td:last-child {
 <div class="grid grid-rows-3 place-content-center p-10">
   <div class="row-span-3 flex flex-row justify-between pb-12">
       <div>
-        <label for="exampleFormControlInput1" class="form-label inline-block mb-2 text-gray-400 font-bold uppercase text-xs"
+        <label for="biarCharInput" class="form-label inline-block mb-2 text-gray-400 font-bold uppercase text-xs"
           >Character</label
         >
         <input
           type="text"
-          (keyup)="updateBiasChar($event)"
+          maxlength="1"
+          [(ngModel)]="biasChar"
+          (ngModelChange)="updateBiasChar()"
           class="
             form-control
             block
@@ -78,7 +84,7 @@ table tbody tr:last-child  td:last-child {
             h-10
             placeholder-gray-300
           "
-          id="exampleFormControlInput1"
+          id="biarCharInput"
           placeholder="Character"
         />
       </div>
@@ -115,7 +121,7 @@ table tbody tr:last-child  td:last-child {
     </div>
 
       <div class="grid place-content-center">
-        <button (click)="getGridAndCode()" class="bg-gray-400 uppercase hover:bg-gray-500 text-white font-bold py-2 px-4 rounded h-10">
+        <button (click)="startGenerator()" class="bg-gray-400 uppercase hover:bg-gray-500 text-white font-bold py-2 px-4 rounded h-10">
           Generate 2D Grid
         </button>
       </div>

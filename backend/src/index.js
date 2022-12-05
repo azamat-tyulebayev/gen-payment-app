@@ -4,22 +4,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-//import { nanoid } from 'nanoid';
 const cors_1 = __importDefault(require("cors"));
 // Set up an Express server to handle HTTP requests
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded());
 app.use((0, cors_1.default)({ origin: ['http://localhost:4200'], credentials: true }));
-//app.use(cors);
 // Store the grid and the bias values in memory
 let grid = [];
-let bias = 'Z';
+let bias = null;
 let code = '';
-// Generate a new grid and update the bias values
+// Generate a new grid
 function updateGrid() {
     let orderedArray = Array(100);
-    if (bias !== '') {
+    if (bias !== null) {
         orderedArray.fill(bias, 0, 20);
         orderedArray.fill('-', 20, 100);
     }
@@ -97,8 +95,8 @@ function isPrime(num) {
 }
 function getRandomCharExcludingBias() {
     let charCode = 65 + Math.floor(Math.random() * 26);
-    //make sure is always uppercase.
-    if (bias != '' && charCode == bias.charCodeAt(0)) {
+    //todo:make sure is always uppercase.
+    if (bias !== null && charCode == bias.charCodeAt(0)) {
         charCode = 65;
     }
     return String.fromCharCode(charCode);
@@ -120,12 +118,20 @@ app.get('/code', (0, cors_1.default)(), (req, res) => {
 });
 // Handle HTTP POST requests to update the bias values
 app.post('/bias', (req, res) => {
-    console.log(req.body.biasChar);
-    console.log(req.body);
-    const char = req.body.biasChar;
-    console.log('CHAR!!!', char);
-    bias = char;
-    res.sendStatus(204);
+    if (req.body.biasChar !== undefined) {
+        const char = req.body.biasChar;
+        if (char.length !== 1) {
+            return res.sendStatus(400);
+        }
+        // Check if the request is within the alphabet
+        if (false === char.match(/^[A-Za-z]$/)) {
+            return res.sendStatus(400);
+        }
+        console.log('CHAR!!!', char);
+        bias = char.toUpperCase();
+        return res.sendStatus(204);
+    }
+    return res.sendStatus(400);
 });
 // Start the server on port 3000
 app.listen(3000, () => {
