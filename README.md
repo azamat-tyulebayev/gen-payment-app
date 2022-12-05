@@ -1,1 +1,1 @@
-# altar-app
+# gen-payment-app
