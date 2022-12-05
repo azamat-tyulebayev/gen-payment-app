@@ -1,0 +1,56 @@
+<app-base>
+    <div class="altar-grid p-10">
+        <app-live-code></app-live-code>
+        <div class="grid grid-flow-col grid-cols-6 pb-6 pt-12 gap-x-5">
+            <app-input-field 
+                [label]="paymentNameInputLabel"
+                [placeholder]="paymentNameInputLabel"
+                [inputLength]="100"
+                [(bindedInputVariable)]="paymentName"
+                [type]="paymentNameInputType"
+                [customClass]="inputCustomClass">
+            </app-input-field>
+            <app-input-field 
+                [label]="paymentAmountInputLabel"
+                [placeholder]="paymentAmountInputLabel"
+                [inputLength]="1000"
+                [(bindedInputVariable)]="paymentAmount"
+                [type]="paymentAmountInputType"
+                [customClass]="inputCustomClass">
+            </app-input-field>
+            <div class="flex justify-start align-bottom items-end">
+                <app-button [label]="addPaymentButtonLabel" (buttonClick)="addPayment()"></app-button>
+            </div>
+        </div>
+        <div class="text-gray-400 font-bold uppercase text-xs mb-2">Payment List</div>
+        <div class="grid font-bold">
+            <table class="border border-gray-500 text-center altar-grid border-spacing-0 border-separate rounded-sm">
+                <thead class="text-gray-400 uppercase text-xs">
+                    <td class="w-8/12 text-left pl-5">Name</td>
+                    <td class="text-center">Amount</td>
+                    <td class="text-center">Code</td>
+                    <td class="text-center">Grid</td>
+                </thead>
+                <tbody class="text-gray-500">
+                    <ng-container *ngIf="payments.length > 0">
+                        <tr *ngFor="let row of payments" class=" border-gray-500">
+                            <td class="pl-5 border-gray-500 text-sm font-bold text-left">{{ row['name'] }}</td>
+                            <td class="pl-5 border-gray-500 text-sm font-bold text-center">{{ row['amount'] }}</td>
+                            <td class="pl-5 border-gray-500 text-sm font-bold text-center">{{ row['code'] }}</td>
+                            <td class="pl-5 border-gray-500 text-sm font-bold text-center">100</td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="payments.length < 7">
+                        <tr *ngFor="let i of [].constructor(7 - payments.length)" class="border-gray-500">
+                            <td class="pl-5 border-gray-500"></td>
+                            <td class="pl-5 border-gray-500"></td>
+                            <td class="pl-5 border-gray-500"></td>
+                            <td class="pl-5 border-gray-500"></td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</app-base>
+<router-outlet></router-outlet>

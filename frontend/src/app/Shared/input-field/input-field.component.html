@@ -1,0 +1,29 @@
+<label for="{{inputId}}" class="form-label inline-block mb-2 text-gray-400 font-bold uppercase text-xs">{{label}}</label>
+<input
+    type="text"
+    maxlength="{{inputLength}}"
+    [(ngModel)]="bindedInputVariable"
+    (ngModelChange)="onBindedInputVariableChange($event)"
+    type="{{type}}"
+    class="
+        form-control
+        block
+        px-3
+        py-1.5
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-gray-400 focus:outline-none
+        text-xs
+        h-10
+        placeholder-gray-300
+        {{customClass}}
+    "
+    id="{{inputId}}"
+    placeholder="{{label}}"
+/>
